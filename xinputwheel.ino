@@ -27,8 +27,8 @@
 #include <XInput.h>
  
 // Input Pins
-const uint8_t PinTriggerLeft = A0;  // Turn left/right
-// const uint8_t PinTriggerLeft = A0;  // Turn left/right
+const uint8_t PinTriggerLeft = A0;
+const uint8_t PinTriggerRight = A1;
 
 const uint8_t Pin_ButtonA  = 2;   // Jump
 const uint8_t Pin_TriggerR = 3;   // Accelerate
@@ -59,12 +59,14 @@ void loop() {
   boolean pressA = !digitalRead(Pin_ButtonA);
   boolean pressTrigger = !digitalRead(Pin_TriggerR);
   int ValueTriggerLeft = analogRead(PinTriggerLeft);
+  int ValueTriggerRight = analogRead(PinTriggerRight);
   
   // Set button and trigger states
   XInput.setButton(BUTTON_A, pressA);
   XInput.setButton(TRIGGER_RIGHT, pressTrigger);
 //  XInput.setJoystick(JOY_LEFT, ValueTriggerLeft, AnalogRead_Max / 2);  // move x, leave y centered
   XInput.setTrigger(TRIGGER_LEFT, ValueTriggerLeft);
+  XInput.setTrigger(TRIGGER_RIGHT, ValueTriggerRight);
 
   // Get rumble value
   uint16_t rumble = XInput.getRumble();
