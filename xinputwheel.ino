@@ -29,9 +29,9 @@
 // Input Pins
 const uint8_t PinTriggerLeft = A0;
 const uint8_t PinTriggerRight = A1;
+const uint8_t PinWheel = A2;
 
 const uint8_t Pin_ButtonA  = 2;   // Jump
-const uint8_t Pin_TriggerR = 3;   // Accelerate
  
 // Output Pins
 const uint8_t Pin_LED = LED_BUILTIN;
@@ -42,14 +42,13 @@ const int AnalogRead_Max = 1023;  // 10-bit ADC
 void setup() {
   // Set input pin modes
   pinMode(Pin_ButtonA, INPUT_PULLUP);
-  pinMode(Pin_TriggerR, INPUT_PULLUP);
  
   // Set output pin mode
   pinMode(Pin_LED, OUTPUT);
   digitalWrite(Pin_LED, LOW);  // Turn 'off'
  
   // Setup library
-  //XInput.setRange(JOY_LEFT, 0, AnalogRead_Max);
+  XInput.setRange(JOY_LEFT, 0, AnalogRead_Max);
   XInput.setTriggerRange(0, AnalogRead_Max);
   XInput.begin();
 }
@@ -57,14 +56,14 @@ void setup() {
 void loop() {
   // Read pin states
   boolean pressA = !digitalRead(Pin_ButtonA);
-  boolean pressTrigger = !digitalRead(Pin_TriggerR);
   int ValueTriggerLeft = analogRead(PinTriggerLeft);
   int ValueTriggerRight = analogRead(PinTriggerRight);
+  int ValueWheel = analogRead(PinWheel);
   
   // Set button and trigger states
   XInput.setButton(BUTTON_A, pressA);
-  XInput.setButton(TRIGGER_RIGHT, pressTrigger);
-//  XInput.setJoystick(JOY_LEFT, ValueTriggerLeft, AnalogRead_Max / 2);  // move x, leave y centered
+  
+  XInput.setJoystick(JOY_LEFT, ValueWheel, AnalogRead_Max / 2);  // move x, leave y centered
   XInput.setTrigger(TRIGGER_LEFT, ValueTriggerLeft);
   XInput.setTrigger(TRIGGER_RIGHT, ValueTriggerRight);
 
