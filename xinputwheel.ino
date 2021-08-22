@@ -27,10 +27,12 @@
 #include <XInput.h>
 
 // Setup for button matrix input pins
-byte rows[] = {8,9,10,11};
+// byte rows[] = {8,9,10,11};
+byte rows[] = {3,4,5,6};
 const int rowCount = sizeof(rows)/sizeof(rows[0]);
 
-byte cols[] = {2,3,4};
+// byte cols[] = {2,3,4};
+byte cols[] = {0,1,2};
 const int colCount = sizeof(cols)/sizeof(cols[0]);
 
 byte keys[colCount][rowCount];
@@ -54,8 +56,8 @@ const uint8_t PinTriggerRight = A1;
 const uint8_t PinWheel = A2;
 
 //const uint8_t Pin_ButtonA    = 2;   // Jump
-const uint8_t Pin_ButtonStart  = 5;
-const uint8_t Pin_ButtonBack = 6;
+const uint8_t Pin_ButtonStart  = 7;
+const uint8_t Pin_ButtonBack = 8;
 const uint8_t Pin_ButtonR3     = 7;
 const uint8_t Pin_ButtonL3     = 12;
 
