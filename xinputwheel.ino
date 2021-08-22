@@ -47,8 +47,12 @@ const uint8_t buttonUp[]    = {1,0};
 const uint8_t buttonDown[]  = {2,1};
 const uint8_t buttonLeft[]  = {0,2};
 const uint8_t buttonRight[] = {1,3};
-const uint8_t buttonL2[]    = {2,0};
-const uint8_t buttonR2[]    = {0,1};
+// these two are the padles or the little buttons
+const uint8_t buttonL1[]    = {2,0};
+const uint8_t buttonR1[]    = {0,1};
+// these next 2 would be the triggers, but the pedals are driving those inputs
+const uint8_t buttonL2[]    = {1,2};
+const uint8_t buttonR2[]    = {2,3};
 
 // Setup for button non-matrix input pins
 const uint8_t PinTriggerLeft = A0;
@@ -120,6 +124,9 @@ void setMatrixButtons() {
   XInput.setButton(BUTTON_B,     !keys[buttonB[0]]    [buttonB[1]]);
   XInput.setButton(BUTTON_X,     !keys[buttonX[0]]    [buttonX[1]]);
   XInput.setButton(BUTTON_Y,     !keys[buttonY[0]]    [buttonY[1]]);
+  XInput.setButton(BUTTON_LB,    !keys[buttonL1[0]]   [buttonL1[1]]);
+  XInput.setButton(BUTTON_RB,    !keys[buttonR1[0]]   [buttonR1[1]]);
+  // next two should/could be triggers  
   XInput.setButton(BUTTON_LB,    !keys[buttonL2[0]]   [buttonL2[1]]);
   XInput.setButton(BUTTON_RB,    !keys[buttonR2[0]]   [buttonR2[1]]);  
   
