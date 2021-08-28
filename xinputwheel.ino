@@ -39,16 +39,18 @@ byte keys[colCount][rowCount];
 
 // setup constants for each button
 // these are not correct or tested, just filled in for later
-const uint8_t buttonA[]     = {0,0};
-const uint8_t buttonB[]     = {1,1};
-const uint8_t buttonX[]     = {2,2};
-const uint8_t buttonY[]     = {0,3};
-const uint8_t buttonUp[]    = {1,0};
+const uint8_t buttonA[]     = {1,1};
+const uint8_t buttonB[]     = {1,0};
+const uint8_t buttonX[]     = {1,3};
+const uint8_t buttonY[]     = {1,2};
+const uint8_t buttonUp[]    = {2,0};
 const uint8_t buttonDown[]  = {2,1};
-const uint8_t buttonLeft[]  = {0,2};
-const uint8_t buttonRight[] = {1,3};
-const uint8_t buttonL2[]    = {2,0};
-const uint8_t buttonR2[]    = {0,1};
+const uint8_t buttonLeft[]  = {2,2};
+const uint8_t buttonRight[] = {2,3};
+const uint8_t buttonLB[]    = {0,2}; // L1
+const uint8_t buttonRB[]    = {0,0}; // R1
+const uint8_t buttonL3[]    = {0,3}; // L2
+const uint8_t buttonR3[]    = {0,1}; // R2
 
 // Setup for button non-matrix input pins
 const uint8_t PinTriggerLeft = A0;
@@ -121,9 +123,11 @@ void setMatrixButtons() {
   XInput.setButton(BUTTON_B,     !keys[buttonB[0]]    [buttonB[1]]);
   XInput.setButton(BUTTON_X,     !keys[buttonX[0]]    [buttonX[1]]);
   XInput.setButton(BUTTON_Y,     !keys[buttonY[0]]    [buttonY[1]]);
-  XInput.setButton(BUTTON_LB,    !keys[buttonL2[0]]   [buttonL2[1]]);
-  XInput.setButton(BUTTON_RB,    !keys[buttonR2[0]]   [buttonR2[1]]);  
-  
+  XInput.setButton(BUTTON_LB,    !keys[buttonLB[0]]   [buttonLB[1]]);
+  XInput.setButton(BUTTON_RB,    !keys[buttonRB[0]]   [buttonRB[1]]);  
+  XInput.setButton(BUTTON_L3,    !keys[buttonL3[0]]   [buttonL3[1]]);
+  XInput.setButton(BUTTON_R3,    !keys[buttonR3[0]]   [buttonR3[1]]);
+    
   XInput.setDpad(!keys[buttonUp[0]][buttonUp[1]],!keys[buttonDown[0]][buttonDown[1]], !keys[buttonLeft[0]][buttonLeft[1]], !keys[buttonRight[0]][buttonRight[1]]);
 }
  
