@@ -55,11 +55,12 @@ const uint8_t PinTriggerLeft = A0;
 const uint8_t PinTriggerRight = A1;
 const uint8_t PinWheel = A2;
 
-//const uint8_t Pin_ButtonA    = 2;   // Jump
-const uint8_t Pin_ButtonStart  = 7;
-const uint8_t Pin_ButtonBack = 8;
-const uint8_t Pin_ButtonR3     = 7;
-const uint8_t Pin_ButtonL3     = 12;
+const uint8_t Pin_ButtonBack  = 7; // labeled "Select"
+const uint8_t Pin_ButtonLogo  = 8; // labeled "Mode"
+const uint8_t Pin_ButtonStart = 9;
+const uint8_t Pin_ButtonL3    = 10;
+const uint8_t Pin_ButtonR3    = 11;
+
 
 // 13
  
@@ -128,6 +129,7 @@ void setMatrixButtons() {
  
 void loop() {
   // Read non-matrix pin states
+  boolean pressLogo = !digitalRead(Pin_ButtonLogo);
   boolean pressStart = !digitalRead(Pin_ButtonStart);
   boolean pressBack = !digitalRead(Pin_ButtonBack);
   boolean pressL3 = !digitalRead(Pin_ButtonL3);
@@ -138,12 +140,15 @@ void loop() {
   int ValueWheel = analogRead(PinWheel);
   
   // Set mon-matrix button and trigger states
+  XInput.setButton(BUTTON_LOGO, pressLogo);
   XInput.setButton(BUTTON_START, pressStart);
   XInput.setButton(BUTTON_BACK, pressBack);
   XInput.setButton(BUTTON_L3, pressL3);
   XInput.setButton(BUTTON_R3, pressR3);
 
   XInput.setJoystick(JOY_LEFT, ValueWheel, AnalogRead_Max / 2);  // move x, leave y centered
+  XInput.setJoystick(JOY_RIGHT, AnalogRead_Max / 2 , AnalogRead_Max / 2);  // leave x and y centered
+
   XInput.setTrigger(TRIGGER_LEFT, ValueTriggerLeft);
   XInput.setTrigger(TRIGGER_RIGHT, ValueTriggerRight);
 
