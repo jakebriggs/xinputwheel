@@ -70,7 +70,12 @@ const uint8_t Pin_ButtonR3    = 11;
 const uint8_t Pin_LED = LED_BUILTIN;
  
 // Analog Input Range
-const int AnalogRead_Max = 1023;  // 10-bit ADC
+const int LeftAnalogRead_Min = 0;  // 10-bit ADC
+const int LeftAnalogRead_Max = 1023;  // 10-bit ADC
+const int LeftTriggerRead_Min = 0;  // 10-bit ADC
+const int LeftTriggerRead_Max = 1023;  // 10-bit ADC
+const int RightTriggerRead_Min = 0;  // 10-bit ADC
+const int RightTriggerRead_Max = 1023;  // 10-bit ADC
  
 void setup() {
   // button matrix input pin modes
@@ -93,8 +98,13 @@ void setup() {
   digitalWrite(Pin_LED, LOW);  // Turn 'off'
  
   // Setup library
-  XInput.setRange(JOY_LEFT, 0, AnalogRead_Max);
-  XInput.setTriggerRange(0, AnalogRead_Max);
+  XInput.setRange(JOY_LEFT, LeftAnalogRead_Min, LeftAnalogRead_Max);
+  // XInput.setTriggerRange(0, LeftAnalogRead_Max);
+
+  XInput.setRange(TRIGGER_LEFT, LeftTriggerRead_Min, LeftTriggerRead_Max);
+  XInput.setRange(TRIGGER_RIGHT, RightTriggerRead_Min, RightTriggerRead_Max);
+
+  
   XInput.begin();
 }
  
@@ -150,8 +160,8 @@ void loop() {
   XInput.setButton(BUTTON_L3, pressL3);
   XInput.setButton(BUTTON_R3, pressR3);
 
-  XInput.setJoystick(JOY_LEFT, ValueWheel, AnalogRead_Max / 2);  // move x, leave y centered
-  XInput.setJoystick(JOY_RIGHT, AnalogRead_Max / 2 , AnalogRead_Max / 2);  // leave x and y centered
+  XInput.setJoystick(JOY_LEFT, ValueWheel, LeftAnalogRead_Max / 2);  // move x, leave y centered
+  XInput.setJoystick(JOY_RIGHT, LeftAnalogRead_Max / 2 , LeftAnalogRead_Max / 2);  // leave x and y centered
 
   XInput.setTrigger(TRIGGER_LEFT, ValueTriggerLeft);
   XInput.setTrigger(TRIGGER_RIGHT, ValueTriggerRight);
