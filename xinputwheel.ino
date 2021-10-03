@@ -38,11 +38,10 @@ const int colCount = sizeof(cols)/sizeof(cols[0]);
 byte keys[colCount][rowCount];
 
 // setup constants for each button
-// these are not correct or tested, just filled in for later
 const uint8_t buttonA[]     = {1,1};
 const uint8_t buttonB[]     = {1,0};
-const uint8_t buttonX[]     = {1,3};
-const uint8_t buttonY[]     = {1,2};
+const uint8_t buttonX[]     = {1,2};
+const uint8_t buttonY[]     = {1,3};
 const uint8_t buttonUp[]    = {2,0};
 const uint8_t buttonDown[]  = {2,1};
 const uint8_t buttonLeft[]  = {2,3};
@@ -63,9 +62,6 @@ const uint8_t Pin_ButtonStart = 9;
 const uint8_t Pin_ButtonL3    = 10;
 const uint8_t Pin_ButtonR3    = 11;
 
-
-// 13
- 
 // Output Pins
 const uint8_t Pin_LED = LED_BUILTIN;
  
@@ -89,10 +85,12 @@ void setup() {
   }  
 
   // non-matrix button input pin modes
-  // pinMode(Pin_ButtonA, INPUT_PULLUP);
+  pinMode(Pin_ButtonLogo, INPUT_PULLUP);
   pinMode(Pin_ButtonStart, INPUT_PULLUP);
   pinMode(Pin_ButtonBack, INPUT_PULLUP);
- 
+  pinMode(Pin_ButtonL3, INPUT_PULLUP);
+  pinMode(Pin_ButtonR3, INPUT_PULLUP);
+
   // Set output pin mode
   pinMode(Pin_LED, OUTPUT);
   digitalWrite(Pin_LED, LOW);  // Turn 'off'
@@ -136,8 +134,8 @@ void setMatrixButtons() {
   XInput.setButton(BUTTON_LB,    !keys[buttonLB[0]]   [buttonLB[1]]);
   XInput.setButton(BUTTON_RB,    !keys[buttonRB[0]]   [buttonRB[1]]);
   // maybe these two next buttons should be triggers because L2 and R2 dont really mnatch anything else  
-  XInput.setButton(BUTTON_L3,    !keys[buttonL2[0]]   [buttonL2[1]]);
-  XInput.setButton(BUTTON_R3,    !keys[buttonR2[0]]   [buttonR2[1]]);
+  XInput.setButton(BUTTON_LB,    !keys[buttonL2[0]]   [buttonL2[1]]);
+  XInput.setButton(BUTTON_RB,    !keys[buttonR2[0]]   [buttonR2[1]]);
     
   XInput.setDpad(!keys[buttonUp[0]][buttonUp[1]],!keys[buttonDown[0]][buttonDown[1]], !keys[buttonLeft[0]][buttonLeft[1]], !keys[buttonRight[0]][buttonRight[1]]);
 }
@@ -164,8 +162,9 @@ void loop() {
   XInput.setJoystick(JOY_LEFT, ValueWheel, LeftAnalogRead_Max / 2);  // move x, leave y centered
   XInput.setJoystick(JOY_RIGHT, LeftAnalogRead_Max / 2 , LeftAnalogRead_Max / 2);  // leave x and y centered
 
-  XInput.setTrigger(TRIGGER_LEFT, ValueTriggerLeft);
-  XInput.setTrigger(TRIGGER_RIGHT, ValueTriggerRight);
+  // invert the right pedal
+  XInput.setTrigger(TRIGGER_LEFT, LeftTriggerRead_Max - ValueTriggerLeft + LeftTriggerRead_Min);
+  XInput.setTrigger(TRIGGER_RIGHT, RightTriggerRead_Max - ValueTriggerRight + RightTriggerRead_Min);
 
   // Read matrix pin states
   readMatrix();
