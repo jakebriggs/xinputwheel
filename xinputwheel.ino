@@ -66,8 +66,8 @@ const uint8_t Pin_ButtonR3    = 11;
 const uint8_t Pin_LED = LED_BUILTIN;
  
 // Analog Input Range
-const int LeftAnalogRead_Min = 0;  // 10-bit ADC
-const int LeftAnalogRead_Max = 1023;  // 10-bit ADC
+const int LeftAnalogRead_Min = 75;  // 10-bit ADC, 0
+const int LeftAnalogRead_Max = 948;  // 10-bit ADC, 1023
 const int LeftTriggerRead_Min = 76;  // 10-bit ADC
 const int LeftTriggerRead_Max = 580;  // 10-bit ADC
 const int RightTriggerRead_Min = 0;  // 10-bit ADC
