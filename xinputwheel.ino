@@ -40,12 +40,12 @@ byte keys[colCount][rowCount];
 // setup constants for each button
 const uint8_t buttonA[]     = {1,1};
 const uint8_t buttonB[]     = {1,0};
-const uint8_t buttonX[]     = {1,2};
-const uint8_t buttonY[]     = {1,3};
+const uint8_t buttonX[]     = {1,3};
+const uint8_t buttonY[]     = {1,2};
 const uint8_t buttonUp[]    = {2,0};
 const uint8_t buttonDown[]  = {2,1};
-const uint8_t buttonLeft[]  = {2,3};
-const uint8_t buttonRight[] = {2,2};
+const uint8_t buttonLeft[]  = {2,2};
+const uint8_t buttonRight[] = {2,3};
 const uint8_t buttonLB[]    = {0,3}; // L1
 const uint8_t buttonRB[]    = {0,0}; // R1
 const uint8_t buttonL2[]    = {0,2}; // L2
@@ -183,4 +183,8 @@ void loop() {
   else {
     digitalWrite(Pin_LED, LOW);
   }
+
+  // wait 2 milliseconds before the next loop for the analog-to-digital
+  // converter to settle after the last reading:
+  delay(2);
 }
